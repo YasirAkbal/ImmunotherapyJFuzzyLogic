@@ -1,0 +1,109 @@
+FUNCTION_BLOCK model
+
+VAR_INPUT
+    age : REAL;
+    time : REAL;
+    now : REAL;
+    type : REAL;
+END_VAR
+
+VAR_OUTPUT
+    sonuc : REAL;
+END_VAR
+
+FUZZIFY age
+    TERM genc := (0,1)(30,0);
+    TERM orta := (25,0) (30,1) (35,0);
+    TERM yasli := (30,0) (50,1) (65,1);
+END_FUZZIFY
+
+FUZZIFY time
+    TERM azTime := (0,1)(6,0);
+    TERM ortaTime := (5,0)(6,1)(10,1)(11,0);
+    TERM cokTime := (10,0)(11,1)(12,1);
+END_FUZZIFY
+
+FUZZIFY now
+    TERM azNow := (0,1)(5,1)(7,0);
+    TERM cokNow := (5,0)(9,1)(20,1);
+END_FUZZIFY
+
+FUZZIFY type
+    TERM tip1 := 1;
+    TERM tip2 := 2;
+    TERM tip3 := 3;
+END_FUZZIFY
+
+DEFUZZIFY sonuc
+    TERM sonuc0 := 0;
+    TERM sonuc1 := 1;
+    METHOD : COGS;
+    DEFAULT := 0.5;
+END_DEFUZZIFY
+
+RULEBLOCK kuralBlok1
+    AND : MIN;
+    ACT : MIN;
+    ACCU : MAX;
+
+    RULE 1: IF age IS genc AND time IS azTime AND now IS azNow AND type IS tip1 THEN sonuc IS sonuc1;
+    RULE 2: IF age IS genc AND time IS azTime AND now IS azNow AND type IS tip2 THEN sonuc IS sonuc1;
+    RULE 3: IF age IS genc AND time IS azTime AND now IS azNow AND type IS tip3 THEN sonuc IS sonuc1;
+    RULE 4: IF age IS genc AND time IS ortaTime AND now IS azNow AND type IS tip1 THEN sonuc IS sonuc1;
+    RULE 5: IF age IS genc AND time IS ortaTime AND now IS azNow AND type IS tip2 THEN sonuc IS sonuc1;
+    RULE 6: IF age IS genc AND time IS ortaTime AND now IS azNow AND type IS tip3 THEN sonuc IS sonuc1;
+    RULE 7: IF age IS genc AND time IS cokTime AND now IS azNow AND type IS tip1 THEN sonuc IS sonuc0;
+    RULE 8: IF age IS genc AND time IS cokTime AND now IS azNow AND type IS tip2 THEN sonuc IS sonuc1;
+    RULE 9: IF age IS genc AND time IS cokTime AND now IS azNow AND type IS tip3 THEN sonuc IS sonuc1;
+    RULE 10: IF age IS genc AND time IS azTime AND now IS cokNow AND type IS tip1 THEN sonuc IS sonuc1;
+    RULE 11: IF age IS genc AND time IS azTime AND now IS cokNow AND type IS tip2 THEN sonuc IS sonuc1;
+    RULE 12: IF age IS genc AND time IS azTime AND now IS cokNow AND type IS tip3 THEN sonuc IS sonuc1;
+    RULE 13: IF age IS genc AND time IS ortaTime AND now IS cokNow AND type IS tip1 THEN sonuc IS sonuc1;
+    RULE 14: IF age IS genc AND time IS ortaTime AND now IS cokNow AND type IS tip2 THEN sonuc IS sonuc1;
+    RULE 15: IF age IS genc AND time IS ortaTime AND now IS cokNow AND type IS tip3 THEN sonuc IS sonuc1;
+    RULE 16: IF age IS genc AND time IS cokTime AND now IS cokNow AND type IS tip1 THEN sonuc IS sonuc0;
+    RULE 17: IF age IS genc AND time IS cokTime AND now IS cokNow AND type IS tip2 THEN sonuc IS sonuc0;
+    RULE 18: IF age IS genc AND time IS cokTime AND now IS cokNow AND type IS tip3 THEN sonuc IS sonuc1;
+
+    RULE 19: IF age IS orta AND time IS azTime AND now IS azNow AND type IS tip1 THEN sonuc IS sonuc1;
+    RULE 20: IF age IS orta AND time IS azTime AND now IS azNow AND type IS tip2 THEN sonuc IS sonuc1;
+    RULE 21: IF age IS orta AND time IS azTime AND now IS azNow AND type IS tip3 THEN sonuc IS sonuc1;
+    RULE 22: IF age IS orta AND time IS ortaTime AND now IS azNow AND type IS tip1 THEN sonuc IS sonuc1;
+    RULE 23: IF age IS orta AND time IS ortaTime AND now IS azNow AND type IS tip2 THEN sonuc IS sonuc1;
+    RULE 24: IF age IS orta AND time IS ortaTime AND now IS azNow AND type IS tip3 THEN sonuc IS sonuc1;
+    RULE 25: IF age IS orta AND time IS cokTime AND now IS azNow AND type IS tip1 THEN sonuc IS sonuc0;
+    RULE 26: IF age IS orta AND time IS cokTime AND now IS azNow AND type IS tip2 THEN sonuc IS sonuc1;
+    RULE 27: IF age IS orta AND time IS cokTime AND now IS azNow AND type IS tip3 THEN sonuc IS sonuc1;
+    RULE 28: IF age IS orta AND time IS azTime AND now IS cokNow AND type IS tip1 THEN sonuc IS sonuc1;
+    RULE 29: IF age IS orta AND time IS azTime AND now IS cokNow AND type IS tip2 THEN sonuc IS sonuc1;
+    RULE 30: IF age IS orta AND time IS azTime AND now IS cokNow AND type IS tip3 THEN sonuc IS sonuc1;
+    RULE 31: IF age IS orta AND time IS ortaTime AND now IS cokNow AND type IS tip1 THEN sonuc IS sonuc1;
+    RULE 32: IF age IS orta AND time IS ortaTime AND now IS cokNow AND type IS tip2 THEN sonuc IS sonuc1;
+    RULE 33: IF age IS orta AND time IS ortaTime AND now IS cokNow AND type IS tip3 THEN sonuc IS sonuc1;
+    RULE 34: IF age IS orta AND time IS cokTime AND now IS cokNow AND type IS tip1 THEN sonuc IS sonuc0;
+    RULE 35: IF age IS orta AND time IS cokTime AND now IS cokNow AND type IS tip2 THEN sonuc IS sonuc0;
+    RULE 36: IF age IS orta AND time IS cokTime AND now IS cokNow AND type IS tip3 THEN sonuc IS sonuc0;
+
+    RULE 37: IF age IS yasli AND time IS azTime AND now IS azNow AND type IS tip1 THEN sonuc IS sonuc1;
+    RULE 38: IF age IS yasli AND time IS azTime AND now IS azNow AND type IS tip2 THEN sonuc IS sonuc1;
+    RULE 39: IF age IS yasli AND time IS azTime AND now IS azNow AND type IS tip3 THEN sonuc IS sonuc1;
+    RULE 40: IF age IS yasli AND time IS ortaTime AND now IS azNow AND type IS tip1 THEN sonuc IS sonuc1;
+    RULE 41: IF age IS yasli AND time IS ortaTime AND now IS azNow AND type IS tip2 THEN sonuc IS sonuc1;
+    RULE 42: IF age IS yasli AND time IS ortaTime AND now IS azNow AND type IS tip3 THEN sonuc IS sonuc1;
+    RULE 43: IF age IS yasli AND time IS cokTime AND now IS azNow AND type IS tip1 THEN sonuc IS sonuc0;
+    RULE 44: IF age IS yasli AND time IS cokTime AND now IS azNow AND type IS tip2 THEN sonuc IS sonuc0;
+    RULE 45: IF age IS yasli AND time IS cokTime AND now IS azNow AND type IS tip3 THEN sonuc IS sonuc0;
+    RULE 46: IF age IS yasli AND time IS azTime AND now IS cokNow AND type IS tip1 THEN sonuc IS sonuc0;
+    RULE 47: IF age IS yasli AND time IS azTime AND now IS cokNow AND type IS tip2 THEN sonuc IS sonuc0;
+    RULE 48: IF age IS yasli AND time IS azTime AND now IS cokNow AND type IS tip3 THEN sonuc IS sonuc1;
+    RULE 49: IF age IS yasli AND time IS ortaTime AND now IS cokNow AND type IS tip1 THEN sonuc IS sonuc1;
+    RULE 50: IF age IS yasli AND time IS ortaTime AND now IS cokNow AND type IS tip2 THEN sonuc IS sonuc1;
+    RULE 51: IF age IS yasli AND time IS ortaTime AND now IS cokNow AND type IS tip3 THEN sonuc IS sonuc1;
+    RULE 52: IF age IS yasli AND time IS cokTime AND now IS cokNow AND type IS tip1 THEN sonuc IS sonuc0;
+    RULE 53: IF age IS yasli AND time IS cokTime AND now IS cokNow AND type IS tip2 THEN sonuc IS sonuc0;
+    RULE 54: IF age IS yasli AND time IS cokTime AND now IS cokNow AND type IS tip3 THEN sonuc IS sonuc0;
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
+
